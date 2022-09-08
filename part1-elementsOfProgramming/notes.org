@@ -130,3 +130,136 @@
 
 * Section 1.2 - Built-in Types of Data
 
+** Definitions
+- A _data type_ is a /set of values/ and a /set of operations/ defined on those values.
+- There are 8 *primitive* types of data in Java.
+  - We most of use =int= for integers, =double= for real numbers, and =boolean= for true-false values.
+- We refer to primitive types and =String= collectively as *built-in* types.
+*** Identifiers
+- A sequence of letters, digits, _, and $, the first of which is NOT a digit.
+- Used to name variables and other things in Java.
+- Case-sensitive.
+- You cannot use cetain _reserved words_ - such as public and int - to name variables.
+*** Literals
+- A source-code representation of a data-type value.
+- int Literals: 1234, 99
+- boolean Literals: true, false
+- Strin Literal: "Hello, World"
+*** Variables
+- A name that we use to refers to a data-type value.
+- We create a variable in a _declaration_ that specifies its type and gives it a name.
+- We compute with it by using the name in an _expression_ that uses operations defined for its type.
+*** Declaration Statements
+- Associates a variable name with a type at compile time.
+- Java is a _strongly-typed_ language because the Java compiler can check for consistency at compile time.
+- Declarations can appear anywhere BEFORE a variable is first used - most often we put them AT the point of first use.
+*** Assignment Statements
+- Associates a data-type value with a variable.
+- The meaning of === is NOT the same as in mathematical equations.
+  - It is the *assignment operator* and not expressing mathematical equality.
+- Left-hand side of an assignment statement:
+  - A /single/ variable.
+- Right-hand side:
+  - An arbitrary /expression/ that produces values of the variable's type.
+*** Expressions
+- A literal, a variable, or a sequence of operations on literals and/or variables that produces a value.
+- _Operators_ specify data-type operations to be performed on one or more _operands_.
+  - Each operand can be any expression.
+*** Converting Strings to Primitive Values for Command-line Arguments
+- Java provides the library methods that we need for converting the strings we type as command-line arguments into numeric values
+  for primitive types.
+- =Integer.parseInt()=
+  - For example, Integer.parseInt("123") yields the literal int value 123.
+- =Double.parseDouble()=
+*** Converting Primitive Type Values to Strings for Output
+- The String type has a special rules that allows you to easily convert any type of data to a String.
+- Whenever we use the =+= operator with a String as one of its operands, Java automatically converts the other to a String.
+  - Producing as a result the String formed from the characters of the first operand followed by the characters of the second.
+
+** Characters and Strings
+- A =char= is an alphanumeric charcter or symbol.
+  + 2^16 different char values.
+  + char literals are enclosed in single quotes.
+- We use _escape sequences_ for some special chars. For example:
+  + Tab: '\t'
+  + Newline: '\n'
+  + And many more. There are escape sequences for specifying characters not found on your keyboard.
+- A _String_ is a sequence of characters. It is not a primitive type, but sometimes Java treats it like one.    
+
+** Integers
+- An =int= is an integer between -2,147,483,648 (-2^31) and 2,147,483,647 (2^31 - 1).
+  + The range of possible int values is asymmetric because zero is included in the positive values.
+- These bounds derive from the fact that integers are represented in binary with 32 binary digits: there are 2^32 possible values.
+- int operators take two int operands and produce an int result.
+  + Division (/) or Remainder (%) by 0 is NOT allowed.
+- Given two int values a and b, the value of a/b is the number of times b goes into a /with the fractional part discarded/.
+  + And the value of a % b is the remainder that you get when you divide a by b.
+- If the result of an int operation is too large to fit into int's 32-bit representation, the it will be truncated in a well-defined manner.
+  + This situation is called an _overflow_.
+- Three other built-in integer types:
+  + =long=
+    - 64 bits long
+    - Use when working with huge numbers.
+  + =short=
+    - 16 bits long
+  + =byte=
+    - 8 bits long
+
+** Floating-Point Numbers
+- The =double= type is used for representing floating-point numbers.
+- We use floating-point numbers to represent real numbers, but they're NOT the same as real numbers.
+  + There are an infinite amount of real numbers, but we can only represent a finite number of floating-points.
+- We can type floating-point literals in two ways
+  1) Sequence of digits with a decimal point. Ex. 3.14159
+  2) Scientific Notation: Ex. 6.022e23 represents 6.022 x 10^23
+- Beyond built-in operators, the Java =Math= library defines the square root, trigonometric, logarithmic, and other functions.
+- The result of a calculation can be of the special values =Infinity= (if the number is too large to be represented) or =Nan= (if the
+  result is undefined).
+- We can also use =float= to represent floating-point numbers when we're not so worried about precision.
+  + double gets you 15 significant digits, float only 7 digits.
+
+** Booleans
+- The =boolean= type has just two values: =true= and =false=.
+- Boolean Operators:
+  + And =&&=
+  + Or =||=
+  + Not =!=
+
+** Comparisons
+- Some /mixed-type/ operators take operands of one type and produce a result of another type.
+- The most important of this kind of operators are the _comparison operators_:
+  + ==
+  + !=
+  + <
+  + <=
+  + >
+  + >=
+  + They are defined for primitive numeric types and produce a boolean.
+  + Both operands must be of the SAME type.
+- They have lower precedence than arithmetic operators and higher precedence than boolean operators.    
+
+** Library Methods and APIs
+- A table that summarizes methods is known as an _application programming interface (API)_.
+  + It provides the information that you need to write and /application program/ that uses the methods.
+- A _method signature_ specifies the type of the arguments, the method name, and the type of the value that the method computes (the _return value_).
+
+** Type Conversion
+- Typical programming tasks involve processing multiple types of data, so we often need to convert from one type to another.
+- There are several ways to do so in Java.
+
+*** Explicit Type Conversion
+- You use a method that takes an argument of one type (the value to be converted) and produces a result of another type.
+- For example, Integer.parseInt().
+
+*** Explicit Cast
+- You _cast_ an expression from one primitive type to another by prepending the desired type name within parentheses.
+  + The expression (int)2.718 is a cast from double to int that produces the value 2.
+- The conversion methods for casts throw away information in a reasonable way.
+  + Casting a floating-point to an integer discrads the fractional part by rounding towards zero.
+- Casting has HIGHER precedence than artihmetic operations - any cast is applied to the value that immediately follows it.    
+
+*** Automatic Promotion for Numbers
+- You can use data of any primitive numeric type where a value whose type has a larger range of values is expected, because Java automatically
+  converts to the type with the larger range.
+  + This kind of conversion is called _promotion_.
+- But, a conversion that might lead to a LOSS of information (like assigning a double to an int) leads to a compile-time error.
